@@ -1,0 +1,18 @@
+-----------  User Stories  --------------
+
+1) Design the Database Schema for the User authentication
+   a) Create the schema, table and prepare the insert scripts for user record.
+   b) provide the DB details as per database.
+   
+2) Create the project structure as per the technology stack.
+   a) Add the required setup, Jar and dependencies.
+   
+3) Create the UI screens or pages for the given use cases.
+
+4) Start creating the rest api services for the user like CRUD operations.
+
+5) Create new api for add the user data in xls file format, parse data and inserted into DB.
+
+6) Provide the Authentication for the users to generate the token.
+
+7) Create unit TestCases for services and repositories.
