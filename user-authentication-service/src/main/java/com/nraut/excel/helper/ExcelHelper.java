@@ -1,6 +1,5 @@
 package com.nraut.excel.helper;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
 
@@ -14,11 +13,19 @@ import org.springframework.web.multipart.MultipartFile;
 import com.nraut.model.UserDetails;
 
 
+/**
+ * @author Nitin
+ *
+ */
 public class ExcelHelper {
 	public static String TYPE = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
 	static String[] HEADERs = { "id", "name", "type"};
 	static String SHEET = "UserDetails";
 	
+	/**
+	 * @param file
+	 * @return
+	 */
 	public static boolean hasExcelFormat(MultipartFile file) {
 	    if (!TYPE.equals(file.getContentType())) {
 	      return false;
@@ -26,6 +33,10 @@ public class ExcelHelper {
 	    return true;
 	  }
 	
+	/**
+	 * @param inputStream
+	 * @return
+	 */
 	public static List<UserDetails> excelToTutorials(InputStream inputStream){
 		try{
 			  Workbook workbook = new XSSFWorkbook(inputStream);

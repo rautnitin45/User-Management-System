@@ -16,24 +16,38 @@ import org.springframework.web.servlet.ModelAndView;
 import com.nraut.excel.helper.ExcelHelper;
 import com.nraut.model.UserDetails;
 import com.nraut.service.ExcelService;
-import com.nraut.service.UserDetailsService;
+import com.nraut.service.UserDetailService;
 
+/**
+ * @author Nitin
+ *
+ */
 @Controller
 public class UserDetailsController {
 
 	@Autowired
-	private UserDetailsService userDetailsService;
+	private UserDetailService userDetailService;
 	
 	@Autowired
 	private ExcelService fileService;
 	
-	@RequestMapping("/")
+	
+	/**
+	 * @param model
+	 * @return list of Users.
+	 */
+	@RequestMapping("/list")
 	public String viewUser(Model model){
-		List<UserDetails> listUsers=userDetailsService.listAll();
+		List<UserDetails> listUsers=userDetailService.listAll();
 		model.addAttribute("listUsers",listUsers);		
-		return "index";
+		return "list";
 	}
 	
+	
+	/**
+	 * @param model
+	 * @return 
+	 */
 	@RequestMapping("/new")
 	public String addNewUserDetails(Model model){
 		UserDetails userDetails = new UserDetails();
@@ -41,28 +55,44 @@ public class UserDetailsController {
 		return "newUser";
 	}
 	
+	/**
+	 * @param userDetail
+	 * @return after adding new user redirect to the list page.
+	 */
 	@RequestMapping(value="/save", method = RequestMethod.POST)
 	public String saveUser(@ModelAttribute("userDetails") UserDetails userDetail){		
-		userDetailsService.save(userDetail);
-		return "redirect:/";
+		userDetailService.save(userDetail);
+		return "redirect:/list";
 	}
 	
+	/**
+	 * @param id
+	 * @return updated details.
+	 */
 	@RequestMapping("/edit/{id}")
 	public ModelAndView editUserDetails(@PathVariable("id") int id){
 		ModelAndView modeAndView = new ModelAndView("editUser");
-		UserDetails userDetails = userDetailsService.get(id);
+		UserDetails userDetails = userDetailService.get(id);
 		
 		modeAndView.addObject("userDetails",userDetails);
 		return modeAndView;
 	}
 	
+	/**
+	 * @param id
+	 * @return deleted the user and redirect to list page.
+	 */
 	@RequestMapping("/delete/{id}")
 	public String deleteUser(@PathVariable("id") int id){
-		userDetailsService.delete(id);
-		return "redirect:/"; 
+		userDetailService.delete(id);
+		return "redirect:/list"; 
 	}
 	
 	
+	/**
+	 * @param file
+	 * @return upload the file details in DB and display into list page.
+	 */
 	@RequestMapping("/upload")
 	public String uploadFile(@RequestParam("file") MultipartFile file) {
 	    String message = "";
@@ -78,6 +108,6 @@ public class UserDetailsController {
 	        System.out.println("Message : "+ e.getMessage());
 	      }
 	    }
-	    return "redirect:/";
+	    return "redirect:/list";
 	}  
 }

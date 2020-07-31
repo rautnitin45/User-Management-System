@@ -9,9 +9,13 @@ import org.springframework.transaction.annotation.Transactional;
 import com.nraut.model.UserDetails;
 import com.nraut.repository.UserDetailsRepository;
 
+/**
+ * @author Nitin
+ *
+ */
 @Service
 @Transactional
-public class UserDetailsService {
+public class UserDetailService {
 
 	@Autowired
 	UserDetailsRepository userRepository;
